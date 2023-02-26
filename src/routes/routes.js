@@ -1,9 +1,8 @@
 import { Router } from "express";
+import { GetUserInformationController } from "../controllers/HomeController.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.json({ message: "Hello World" });
-});
+router.get("/", GetUserInformationController);
 
 export default router;

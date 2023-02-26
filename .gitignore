@@ -1,2 +1,9 @@
+# node package manager
 /node_modules
 /package-lock.json
+
+# json 
+model.json
+
+# dotenv environment variables file
+.env
