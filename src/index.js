@@ -1,7 +1,7 @@
 import "dotenv/config";
 import Express  from "express";
 import morgan from "./middlewares/morgan.js";
-import routes from "./routes/routes.js";
+import routes from "./v1/routes/routes.js";
 import {dbConnection}  from "./db/databaseConnection.js";
 import session from "express-session";
 
