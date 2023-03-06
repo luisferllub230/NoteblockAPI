@@ -7,3 +7,6 @@ model.json
 
 # dotenv environment variables file
 .env
+
+# vscode
+.vscode
