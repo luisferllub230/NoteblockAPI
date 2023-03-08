@@ -22,6 +22,6 @@ app.use(session({
 
 
 //routes
-app.use(routes);
+app.use('/API/v1',routes);
 
 export default app;

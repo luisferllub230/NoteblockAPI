@@ -1,10 +1,14 @@
 import { Router } from "express";
-import { CreateUserController, GetUserInformationController } from "../../controllers/Controllers.js";
+import loggingController from "../../controllers/loggingController/loggingController";
+import registrationController from "../../controllers/registrationController/registrationController";
+import userController from "../../controllers/UserController/userController";
+
 
 const router = Router();
 
-router.get("/", GetUserInformationController);
-router.post("/createUser", CreateUserController);
-router.post("/login", GetUserInformationController);
+router
+    .get("/:userId", userController.getUserInfoByIdController)
+    .post("/addUserRegistration", registrationController.postAddUserController)
+    .post("/login", loggingController.postLoggingController);
 
 export default router;

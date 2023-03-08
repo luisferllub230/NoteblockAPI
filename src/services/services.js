@@ -2,11 +2,19 @@ import { createUserRepository, GetUserInfoByIdRepository } from "../repositories
 import bcrypt from "bcrypt";
 import { userSchema } from "../schema/userSchema.js";
 
-export const getUsersInformationServices = async () => {
-    return await GetUserInfoByIdRepository();
+export const postLoggingService = async ( userName = "", userNickname = "", userPassword = "" ) => 
+{
+    if(userName === "" || userNickname === "" || userPassword === "")
+        return { message: "User name or password are wrong", status: 400, isLogged: false };
 }
 
-export const createUserService = async (userData) => {
+export const getUsersInfoByIdServices = async ( userID ) => 
+{
+    return await GetUserInfoByIdRepository(userID);
+}
+
+export const createUserService = async (userData) => 
+{
 
     Object.entries(userData).forEach(([key, value]) => {
         if (value === undefined || value === null || value === "")
