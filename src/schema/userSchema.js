@@ -2,7 +2,6 @@ import { notesSchema } from "./notesSchema.js";
 import { labelSchema } from "./labelSchema.js";
 
 export const userSchema = {
-    isLogged: Boolean,
     isActiveUser: Boolean,
     name: String,
     lastName: String,

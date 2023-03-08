@@ -3,4 +3,4 @@ import {userSchema} from '../schema/userSchema.js';
 
 const userSchemas = new Schema(userSchema);
 
-export const userModule = model('users', userSchemas);
+export default model('users', userSchemas);
