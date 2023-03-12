@@ -5,6 +5,7 @@ import Express  from "express";
 import morgan from "morgan";
 import routes from "./v1/routes/routes.js";
 import session from "express-session";
+import cors from "cors";
 
 import { dbConnection }  from "./db/databaseConnection.js";
 
@@ -12,6 +13,9 @@ const app = Express();
 
 //database connection
 dbConnection( process.env.DB_URL );
+
+//cors
+app.use(cors());
 
 //middlewares
 app.use(Express.json());
