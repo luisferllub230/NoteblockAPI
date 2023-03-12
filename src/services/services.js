@@ -1,4 +1,8 @@
-import { createUserRepository, GetUserInfoByIdRepository, getUserInfoByNickNameRepository } from "../repositories/repositories.js";
+import {
+    createUserRepository,
+    GetUserInfoByIdRepository,
+    getUserInfoByNickNameRepository,
+} from "../repositories/repositories.js";
 import { userSchema } from "../schema/userSchema.js";
 import password_bycrypt from "../helpers/password_bycrypt.js";
 
@@ -8,8 +12,7 @@ import password_bycrypt from "../helpers/password_bycrypt.js";
  * @param {*} userID 
  * @returns 
  */
-export const getUserInfoByIdServices = async ( userID ) => 
-{
+export const getUserInfoByIdServices = async (userID) => {
     return await GetUserInfoByIdRepository(userID);
 }
 
@@ -21,28 +24,26 @@ export const getUserInfoByIdServices = async ( userID ) =>
  * @param {string} userInfoLogger.password - The user's password.
  * @returns {Object} An object containing the user's information and login status, or an error message.
  */
-export const postLoggingService = async ( userInfoLogger ) => 
-{
+export const postLoggingService = async (userInfoLogger) => {
+
     Object.entries(userInfoLogger).forEach(([key, value]) => {
         if (value === undefined || value === null || value === "")
             userInfoLogger = null;
     });
 
-    if(!userInfoLogger)
-    {
-        return { message: "check your user nickName or password", status: 400, isUserLogged: false };
+    if (!userInfoLogger) {
+        return { message: "check your user nickName or password", status: 400, isUserValidate: false };
     }
 
-    const userInfo = await getUserInfoByNameOrNickNameRepository(userInfoLogger.userName, userInfoLogger.userNickname);
-
-    if(!password_bycrypt.comparePassword(userInfoLogger.password, userInfo.password))
-    {
-        return { message: "check your user nickName or password", status: 400, isUserLogged: false };
+    const userInfo = await getUserInfoByNickNameRepository(userInfoLogger.userNickname);
+    
+    if (!password_bycrypt.comparePassword(userInfoLogger.userPassword, userInfo.password)) {
+        return { message: "check your user nickName or password", status: 400, isUserValidate: false };
     }
 
     const userResponse = userInfo["_doc"];
     delete userResponse.password;
-    return { ...userResponse, isUserLogged: true };   
+    return { ...userResponse, isUserValidate: true };
 }
 
 /**
@@ -58,21 +59,18 @@ export const postLoggingService = async ( userInfoLogger ) =>
  * @param {string} userData.city - The user's city.
  * @returns {Object} An object containing the newly created user's information, or an error message.
  */
-export const createUserService = async (userData) => 
-{
+export const createUserService = async (userData) => {
 
     Object.entries(userData).forEach(([key, value]) => {
         if (value === undefined || value === null || value === "")
             userData = null;
     });
 
-    if (userData === null)
-    {
+    if (userData === null) {
         return { message: "All user data is required", status: 400, dataSaved: false };
     }
 
-    if( await getUserInfoByNickNameRepository(userData.nickname))
-    {
+    if (await getUserInfoByNickNameRepository(userData.nickname)) {
         return { message: "Nickname already exists", status: 400, dataSaved: false };
     }
 

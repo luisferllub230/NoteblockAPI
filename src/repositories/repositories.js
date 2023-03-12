@@ -5,10 +5,6 @@ export const GetUserInfoByIdRepository = async ( userID ) => {
     return await userModule.findById(userID);
 };
 
-export const getUserInfoByNameOrNickNameRepository = async ( userName, nickname ) => {
-    return await userModule.findOne({userName, nickname});
-}
-
 export const getUserInfoByNickNameRepository = async ( nickname ) => {
     return await userModule.findOne({nickname});;
 };
